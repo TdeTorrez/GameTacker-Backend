@@ -8,7 +8,10 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const game = req.query.game;
-    const filter = game ? { juego: game } : {};
+    const author = req.query.author;
+    const filter = {};
+    if (game) filter.juego = game;
+    if (author) filter.autor = author;
     const reviews = await Review.find(filter).populate("autor", "nombre");
     res.json(reviews);
   } catch (err) { res.status(500).json({ msg: "Error servidor" }); }

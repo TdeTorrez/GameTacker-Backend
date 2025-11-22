@@ -6,6 +6,7 @@ const reviewSchema = new mongoose.Schema({
   titulo: { type: String },
   contenido: { type: String, required: true },
   estrellas: { type: Number, min: 0, max: 5, required: true },
+  favorita: { type: Boolean, default: false },
   createdAt: { type: Date, default: Date.now }
 });
 

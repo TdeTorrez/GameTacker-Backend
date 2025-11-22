@@ -58,9 +58,8 @@ router.delete("/:id", authMiddleware, async (req, res) => {
   try {
     const game = await Game.findById(req.params.id);
     if (!game) return res.status(404).json({ msg: "No encontrado" });
-    if (game.creador && game.creador.toString() !== req.userId) return res.status(403).json({ msg: "No autorizado" });
 
-    await game.remove();
+    await game.deleteOne();
     await Review.deleteMany({ juego: req.params.id });
     res.json({ msg: "Eliminado" });
   } catch (err) { res.status(500).json({ msg: "Error servidor" }); }
